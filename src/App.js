@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Content from './components/content';
+import Header from './components/header';
 
 function App() {
+  const [shrunk, setShrunk] = useState(false);
+
+  const handleScroll = event => {
+    var scrollTop = event.currentTarget.scrollTop;
+    console.log('scrollTop: ', event.currentTarget.scrollTop);
+//    console.log('offsetHeight: ', event.currentTarget.offsetHeight);
+
+    setShrunk(scrollTop > 5)
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <div className={`header ${shrunk ? "minimized" : ""}`}><Header minimize={shrunk}/></div> */}
+      <div className={`header ${shrunk ? "minimized" : ""}`}>header</div>
+      <div className={`content ${shrunk ? "maximized" : ""}`} onScroll={handleScroll}><Content/></div>
+      <div className='footer'>footer</div>
     </div>
   );
 }
